@@ -58,12 +58,8 @@ export default class Book extends Component {
 	render() {
 		var item = convos.find(x => x.id === this.state.id);
 		return (
-			<View style={{flex:1}}>
-				<View>
-					<TouchableOpacity onPress={this.onPressButton} style={styles.buttonContainer}>
-						<Text style={styles.buttonText}>to BOOKS</Text>
-					</TouchableOpacity>				
-				</View>
+			<View style={{flex:1, backgroundColor:"#3498db"}}>
+				
 				<View style={styles.view}>	    		
 		        	<Image source = {item.image} style={styles.image} />
 			        <View style={styles.rightContainer}>
@@ -115,9 +111,9 @@ const styles = StyleSheet.create({
 		textShadowOffset: {width: 1, height: 1},
 	},	
 	image: {
-		width: 270,
-    	height: 400,
-	    justifyContent: 'center',
+		marginTop: 30,
+		width: 320,
+    	height: 480,
 	    alignItems: 'center',
 	}
 });

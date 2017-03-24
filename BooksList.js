@@ -77,7 +77,7 @@ export default class BooksList extends Component {
 
 	render() {
 		return (
-			<View style={{flex:1}}>
+			<View style={{flex:1, backgroundColor:"red"}}>
 				<View>
 					<TouchableOpacity onPress={this.onPressButton} style={styles.buttonContainer}>
 						<Text style={styles.buttonText}>to PROFILE</Text>
@@ -133,14 +133,14 @@ const styles = StyleSheet.create({
 	},	
 	listView: {
 	    paddingTop: 0,
-	    backgroundColor: '#F5FCFF',
+	    backgroundColor: "#34495e",
 	},
 	description:{
 	    padding:0,
-	    borderTopWidth:3,
-	    borderBottomWidth:3,
+	    borderTopWidth:0,
+	    borderBottomWidth:0,
 	    borderColor:'#e3e3e3',
 	    marginTop:2,
-	    marginBottom:2
+	    marginBottom:2,
 	},
 });

@@ -21,7 +21,7 @@ export default class Books extends Component {
 	}
 
 	navigatorRenderScene(route, navigator) {
-		_navigator = navigator;
+		//_navigator = navigator;
 		switch (route.id) {
 			case 'login':
 				return ( <Login navigator = {navigator} /> );

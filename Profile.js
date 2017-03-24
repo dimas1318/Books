@@ -93,7 +93,7 @@ export default class Profile extends Component {
 
 	render() {
 		return (
-			<View style={{flex:1}}>
+			<View style={{flex:1, backgroundColor:"red"}}>
 				<View>
 					<TouchableOpacity onPress={this.onPressButton} style={styles.buttonContainer}>
 						<Text style={styles.buttonText}>to BOOKS</Text>

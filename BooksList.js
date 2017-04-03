@@ -10,6 +10,7 @@ import
 	ListView,
 	Image,
 	BackAndroid,
+	TextInput,
 } from 'react-native';
 
 import Book from './Book';
@@ -22,7 +23,10 @@ var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 export default class BooksList extends Component {
 	constructor(props){
 	    super(props);
-	    this.state = {dataSource: ds.cloneWithRows(convos)};
+	    this.state = {
+	    	dataSource: ds.cloneWithRows(convos),
+	    	text: ""
+	    };
 		this.handleBack = (() => {
 	        return true;
     	})
@@ -52,7 +56,14 @@ export default class BooksList extends Component {
 	render() {
 		return (
 			<View style={{flex:1, marginBottom:25}}>
+				<TextInput 
+					style={styles.textInput} 
+					onChangeText={(text) => this.filterSearch(text)}
+					placeholder="Search"
+					value={this.state.text}
+				/>
 	       		<ListView
+	       			enableEmptySections={true}
 			      	showsHorizontalScrollIndicator = {true}
 			    	dataSource={this.state.dataSource}
 			    	pageSize = {5}
@@ -61,6 +72,18 @@ export default class BooksList extends Component {
 			    />
 	       </View>
 		);
+	}
+
+	filterSearch(text){
+		const newData = convos.filter(function(item){
+			const itemData = item.name.toLowerCase();
+			const textData = text.toLowerCase();
+			return itemData.indexOf(textData) > -1;
+		})
+		this.setState({
+			dataSource: this.state.dataSource.cloneWithRows(newData),
+			text: text
+		})
 	}
 }
 
@@ -109,5 +132,13 @@ const styles = StyleSheet.create({
 	    borderColor:'#e3e3e3',
 	    marginTop:2,
 	    marginBottom:2,
+	},
+	textInput: {
+	    paddingLeft: 30,
+	  	fontSize: 22,
+	  	height: 25,
+	 	flex: 0.07,
+		borderWidth: 3,
+		borderColor: "#cecece",
 	},
 });

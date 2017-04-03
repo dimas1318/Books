@@ -16,19 +16,24 @@ export default class Books extends Component {
 	render() {
 		return (
 			<Navigator initialRoute = {{id: 'login'}}
-			renderScene = {this.navigatorRenderScene} />
+			renderScene = {this.navigatorRenderScene}
+            configureScene={(route) => {
+		        if (route.sceneConfig) {
+		          return route.sceneConfig;
+		        }
+		        return Navigator.SceneConfigs.FadeAndroid;
+		    }} />
 		);
 	}
 
 	navigatorRenderScene(route, navigator) {
-		//_navigator = navigator;
 		switch (route.id) {
 			case 'login':
 				return ( <Login navigator = {navigator} /> );
 			case 'profile':
        			return ( <Profile navigator={navigator} /> );
-      		case 'bookslist':
-        		return ( <BooksList navigator={navigator} /> );
+      		/*case 'bookslist':
+        		return ( <BooksList navigator={navigator} /> );*/
         	case 'book':
         		return ( <Book navigator = {navigator} passProps={route.passProps} /> );
 		}

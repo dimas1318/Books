@@ -7,6 +7,7 @@ import {
 	Image,
 	TouchableOpacity,
 } from 'react-native';
+import randomcolor from 'randomcolor'
 
 var book1 = require('./images/book1.jpg')
 var book2 = require('./images/book2.jpg')
@@ -49,36 +50,21 @@ export default class Book extends Component {
 		};
 	}
 
-	onPressButton = () => {
-		this.props.navigator.push({
-			id: 'bookslist'
-		});
-	}
-
 	render() {
 		var item = convos.find(x => x.id === this.state.id);
-		return (
-			<View style={{flex:1, backgroundColor:"#3498db"}}>
-				
-				<View style={styles.view}>	    		
-		        	<Image source = {item.image} style={styles.image} />
-			        <View style={styles.rightContainer}>
-			          	<Text style={styles.author}>{item.author}</Text>
-		        		<Text style={styles.name}>"{item.name}"</Text>
-	      			</View>
-	        	</View>
-			</View>
+		return (			
+			<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: randomcolor()}}>	    		
+	        	<Image source = {item.image} style={styles.image} />
+		        <View style={styles.rightContainer}>
+		          	<Text style={styles.author}>{item.author}</Text>
+	        		<Text style={styles.name}>"{item.name}"</Text>
+      			</View>
+        	</View>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
-	view: {
-		backgroundColor: 'rgba(255,255,255,0.2)',
-		flex: 1,
-		justifyContent: 'center',
-	    alignItems: 'center',
-	},
 	buttonContainer: {
 		alignSelf: 'stretch',
 		margin: 20,
@@ -112,8 +98,8 @@ const styles = StyleSheet.create({
 	},	
 	image: {
 		marginTop: 30,
-		width: 320,
-    	height: 480,
+		width: 300,
+    	height: 460,
 	    alignItems: 'center',
 	}
 });

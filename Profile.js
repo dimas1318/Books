@@ -10,6 +10,9 @@ import
 	Dimensions,
 	ListView,
 } from 'react-native';
+import Swiper from 'react-native-swiper';
+
+import BooksList from './BooksList';
 
 var image1 = require('./images/image1.jpeg')
 var image2 = require('./images/image2.jpeg')
@@ -77,12 +80,6 @@ export default class Profile extends Component {
 	    }
 	}
 
-	onPressButton = () => {
-		this.props.navigator.push({
-			id: 'bookslist'
-		});
-	}
-
 	eachPic(x){
 	    return(
 	        <TouchableOpacity style={{alignItems:'center'}}>
@@ -93,45 +90,41 @@ export default class Profile extends Component {
 
 	render() {
 		return (
-			<View style={{flex:1, backgroundColor:"red"}}>
-				<View>
-					<TouchableOpacity onPress={this.onPressButton} style={styles.buttonContainer}>
-						<Text style={styles.buttonText}>to BOOKS</Text>
-					</TouchableOpacity>
-				</View>
-				<View style={{flex:1}}>
+		  	<Swiper style={{marginBottom:10}} showsPagination={false}>
+		  		<View style={{flex:1, marginBottom:25}}>
 					<ScrollView style={styles.container}>
-					 	<Image source ={require('./images/profile.jpg')} resizeMode="stretch" style={{height:300, width:width}} />
-					  		<View style={[styles.row, {marginTop:15}]}>
-				       			<Text style = {{fontSize:19, fontWeight:'400'}}>Hugh, </Text><Text style={{fontSize:21, fontWeight:'300', marginBottom:-2}}>48</Text>
-				       		</View>
-				       		<View style={styles.row}>
-				       			<Text style={{color:'#444', fontSize:15}}>Professional</Text>
-				      		</View>
-				       		<View style={styles.row}>
-				       			<Text style={{color:'#777', fontSize:11}}>read 1593 books</Text>
-				       		</View>
-				       		<View style={styles.description}>
-				       			<Text style = {styles.title}> Favourite quote</Text>
-				       			<Text style={{color:'#555'}}>To be, or not to be?</Text>
-				       		</View>
-				       		<View style ={styles.commons}>
-				       			<Text style = {styles.title}> Preferences in genres</Text>
-				       			<Text style={{marginTop:10, fontSize:14, color:'#666', fontWeight:"400"}}>Romance, Mystery, Horror</Text>
-				       		</View>
-				       <View style ={styles.commons}>
-				       		<Text style = {styles.title}> Friends</Text>
+				 		<Image source ={require('./images/profile.jpg')} resizeMode="stretch" style={{height:300, width:width}} />
+				  		<View style={[styles.row, {marginTop:15}]}>
+			       			<Text style = {{fontSize:19, fontWeight:'400'}}>Hugh, </Text><Text style={{fontSize:21, fontWeight:'300', marginBottom:-2}}>48</Text>
+			       		</View>
+			       		<View style={styles.row}>
+			       			<Text style={{color:'#444', fontSize:15}}>Professional</Text>
+			      		</View>
+			       		<View style={styles.row}>
+			       			<Text style={{color:'#777', fontSize:11}}>read 1593 books</Text>
+			       		</View>
+			       		<View style={styles.description}>
+			       			<Text style = {styles.title}> Favourite quote</Text>
+			       			<Text style={{color:'#555'}}>To be, or not to be?</Text>
+			       		</View>
+			       		<View style ={styles.commons}>
+			       			<Text style = {styles.title}> Preferences in genres</Text>
+			       			<Text style={{marginTop:10, fontSize:14, color:'#666', fontWeight:"400"}}>Romance, Mystery, Horror</Text>
+			       		</View>
+				        <View /*style ={{marginBottom:10}/*styles.commons}*/>
+				       		<Text style = {[styles.title, {padding:15}]}> Friends</Text>
 				       		<ListView 
 						      	horizontal={true}
 						      	showsHorizontalScrollIndicator = {false}
 						    	dataSource={this.state.dataSource}
-						    	pageSize = {5}
+						    	pageSize = {4}
 						      	renderRow={(rowData) =>this.eachPic(rowData)}
 						    />
-				       </View>
+				        </View>
 					</ScrollView>
-	      		</View>
-      		</View>
+	  			</View>
+		        <BooksList navigator={this.props.navigator}/>
+	   		</Swiper>
 		);
 	}
 }

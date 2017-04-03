@@ -11,6 +11,8 @@ import
 	Image,
 } from 'react-native';
 
+import Book from './Book';
+
 var book1 = require('./images/book1.jpg')
 var book2 = require('./images/book2.jpg')
 var book3 = require('./images/book3.jpg')
@@ -49,22 +51,15 @@ var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 export default class BooksList extends Component {
 	constructor(props){
 	    super(props)
-
+	    
 	    this.state = {
 	      	dataSource: ds.cloneWithRows(convos),
-	      	image: '',
 	    }
-	}
-
-	onPressButton = () => {
-		this.props.navigator.push({
-			id: 'profile',
-		});
 	}
 
 	eachPic(x){
 	    return(
-	    	<TouchableOpacity onPress={() => this.props.navigator.push({id: 'book', passProps: x.id})} style={styles.description}>
+	    	<TouchableOpacity onPress={() => {this.props.navigator.push({id: 'book', passProps: x.id, sceneConfig: Navigator.SceneConfigs.PushFromRight})}} style={styles.description}>
 	    		<View style={styles.container}>	    		
 			        <Image source = {x.image} style={{width:100, height:150}} />
 			        <View style={styles.rightContainer}>
@@ -77,22 +72,15 @@ export default class BooksList extends Component {
 
 	render() {
 		return (
-			<View style={{flex:1, backgroundColor:"red"}}>
-				<View>
-					<TouchableOpacity onPress={this.onPressButton} style={styles.buttonContainer}>
-						<Text style={styles.buttonText}>to PROFILE</Text>
-					</TouchableOpacity>
-				</View>
-				<View style={{flex:1}}>
-		       		<ListView
-				      	showsHorizontalScrollIndicator = {true}
-				    	dataSource={this.state.dataSource}
-				    	pageSize = {5}
-				      	renderRow={(rowData) =>this.eachPic(rowData)}
-				      	style={styles.listView}
-				    />
-		       </View>
-      		</View>
+			<View style={{flex:1, marginBottom:25}}>
+	       		<ListView
+			      	showsHorizontalScrollIndicator = {true}
+			    	dataSource={this.state.dataSource}
+			    	pageSize = {5}
+			      	renderRow={(rowData) =>this.eachPic(rowData)}
+			      	style={styles.listView}
+			    />
+	       </View>
 		);
 	}
 }

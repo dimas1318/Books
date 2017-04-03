@@ -9,38 +9,9 @@ import {
 } from 'react-native';
 import randomcolor from 'randomcolor'
 
-var book1 = require('./images/book1.jpg')
-var book2 = require('./images/book2.jpg')
-var book3 = require('./images/book3.jpg')
-var book4 = require('./images/book4.jpg')
-var book5 = require('./images/book5.jpg')
+import {books} from './Storage';
 
-var convos = [{
-  "id": 1,
-  "name": "Властелин колец",
-  "author": "Дж. Р.Р. Толкин",
-  "image" : book1
-}, {
-  "id": 2,
-  "name": "Война и мир",
-  "author": "Л.Н. Толстой",
-  "image" : book2
-}, {
-  "id": 3,
-  "name": "Илиада",
-  "author": "Гомер",
-  "image" : book3
-}, {
-  "id": 4,
-  "name": "Преступление и наказание",
-  "author": "Ф.М. Достоевский",
-  "image" : book4
-}, {
-  "id": 5,
-  "name": "Мастер и маргарита",
-  "author": "М. Булгаков",
-  "image" : book5
-}]
+var convos = books;
 
 export default class Book extends Component {
 	constructor(props) {

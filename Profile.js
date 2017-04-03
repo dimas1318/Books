@@ -13,59 +13,9 @@ import
 import Swiper from 'react-native-swiper';
 
 import BooksList from './BooksList';
+import {friends} from './Storage';
 
-var image1 = require('./images/image1.jpeg')
-var image2 = require('./images/image2.jpeg')
-var image3 = require('./images/image3.jpeg')
-var image4 = require('./images/image4.jpeg')
-var image5 = require('./images/image5.jpeg')
-var image6 = require('./images/image6.jpeg')
-var image7 = require('./images/image7.jpeg')
-var image8 = require('./images/image8.jpeg')
-var image9 = require('./images/image9.jpeg')
-var image10 = require('./images/image10.jpeg')
-
-var convos = [{
-  "id": 1,
-  "name": "Diane",
-  "image" : image1
-}, {
-  "id": 2,
-  "name": "Lois",
-  "image" : image2
-}, {
-  "id": 3,
-  "name": "Mary",
-  "image" : image3
-}, {
-  "id": 4,
-  "name": "Susan",
-  "image" : image4
-}, {
-  "id": 5,
-  "name": "Betty",
-  "image" : image5
-}, {
-  "id": 6,
-  "name": "Deborah",
-  "image" : image6
-}, {
-  "id": 7,
-  "name": "Frances",
-  "image" : image7
-}, {
-  "id": 8,
-  "name": "Joan",
-  "image" : image8
-}, {
-  "id": 9,
-  "name": "Denise",
-  "image" : image9
-}, {
-  "id": 10,
-  "name": "Rachel",
-  "image" : image10
-}]
+var convos = friends;
 
 var {height, width} = Dimensions.get('window');
 

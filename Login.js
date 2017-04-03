@@ -7,9 +7,26 @@ import {
 	Image,
 	TextInput,
 	TouchableOpacity,
+	BackAndroid,
 } from 'react-native';
 
 export default class Login extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {username: '', password: ''};
+		this.handleBack = (() => {
+	        return true;
+    	})
+	}
+
+	componentDidMount() {
+    	BackAndroid.addEventListener('hardwareBackPress', this.handleBack);
+    }
+
+ 	componentWillUnmount() {
+    	BackAndroid.removeEventListener('hardwareBackPress', this.handleBack);
+    }
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -40,11 +57,6 @@ export default class Login extends Component {
 				</Image>
 			</View>
 		);
-	}
-
-	constructor(props) {
-		super(props);
-		this.state = {username: '', password: ''};
 	}
 
 	login = () => {

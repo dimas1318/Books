@@ -6,6 +6,7 @@ import {
 	View,
 	Image,
 	TouchableOpacity,
+	BackAndroid,
 } from 'react-native';
 import randomcolor from 'randomcolor'
 
@@ -16,10 +17,20 @@ var convos = books;
 export default class Book extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			id: this.props.passProps,
-		};
+		this.state = {id: this.props.passProps};
+		this.handleBack = (() => {
+        	this.props.navigator.pop();
+	        return true;
+    	})
 	}
+
+	componentDidMount() {
+    	BackAndroid.addEventListener('hardwareBackPress', this.handleBack);
+    }
+
+ 	componentWillUnmount() {
+    	BackAndroid.removeEventListener('hardwareBackPress', this.handleBack);
+    }
 
 	render() {
 		var item = convos.find(x => x.id === this.state.id);

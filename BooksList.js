@@ -9,6 +9,7 @@ import
 	TouchableOpacity,
 	ListView,
 	Image,
+	BackAndroid,
 } from 'react-native';
 
 import Book from './Book';
@@ -20,12 +21,20 @@ var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class BooksList extends Component {
 	constructor(props){
-	    super(props)
-
-	    this.state = {
-	      	dataSource: ds.cloneWithRows(convos),
-	    }
+	    super(props);
+	    this.state = {dataSource: ds.cloneWithRows(convos)};
+		this.handleBack = (() => {
+	        return true;
+    	})
 	}
+
+	componentDidMount() {
+    	BackAndroid.addEventListener('hardwareBackPress', this.handleBack);
+    }
+
+ 	componentWillUnmount() {
+    	BackAndroid.removeEventListener('hardwareBackPress', this.handleBack);
+    }
 
 	eachPic(x){
 	    return(

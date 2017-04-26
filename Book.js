@@ -10,9 +10,8 @@ import {
 } from 'react-native';
 import randomcolor from 'randomcolor'
 
-import {books} from './Storage';
-
-var convos = books;
+var convos = [];
+var REQUEST_URL = 'http://192.168.1.164:8080/serverCrec/webresources/generic/get';
 
 export default class Book extends Component {
 	constructor(props) {
@@ -25,6 +24,7 @@ export default class Book extends Component {
 	}
 
 	componentDidMount() {
+		this.fetchData();
     	BackAndroid.addEventListener('hardwareBackPress', this.handleBack);
     }
 
@@ -32,11 +32,28 @@ export default class Book extends Component {
     	BackAndroid.removeEventListener('hardwareBackPress', this.handleBack);
     }
 
+    fetchData() {
+      fetch(REQUEST_URL)
+        .then((response) => response.json())
+        .then((responseData) => {
+          convos = responseData.books,
+          this.setState({
+            loaded: true,
+          });
+          
+        })
+        .done();
+ 	}
+
 	render() {
+		if (!this.state.loaded) {
+	      return this.renderLoadingView();
+	    }
+
 		var item = convos.find(x => x.id === this.state.id);
 		return (			
 			<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: randomcolor()}}>	    		
-	        	<Image source = {item.image} style={styles.image} />
+	        	<Image source = {{uri: item.image}} style={styles.image} />
 		        <View style={styles.rightContainer}>
 		          	<Text style={styles.author}>{item.author}</Text>
 	        		<Text style={styles.name}>"{item.name}"</Text>
@@ -44,9 +61,26 @@ export default class Book extends Component {
         	</View>
 		);
 	}
+
+	renderLoadingView() {
+      return (
+        <View style={styles.container}>
+          <Text>
+            Loading picture...
+          </Text>
+        </View>
+      );
+    }
 }
 
 const styles = StyleSheet.create({
+	container: {
+	    flex: 1,
+	    flexDirection: 'row',
+	    justifyContent: 'center',
+	    alignItems: 'center',
+	    backgroundColor: '#F5FCFF',
+	},
 	buttonContainer: {
 		alignSelf: 'stretch',
 		margin: 20,
@@ -80,8 +114,8 @@ const styles = StyleSheet.create({
 	},	
 	image: {
 		marginTop: 30,
-		width: 300,
-    	height: 460,
+		width: 280,
+    	height: 420,
 	    alignItems: 'center',
 	}
 });

@@ -14,17 +14,18 @@ import
 } from 'react-native';
 
 import Book from './Book';
-import {books} from './Storage';
 
-var convos = books;
-
-var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+var convos = [];
+var REQUEST_URL = 'http://192.168.1.164:8080/serverCrec/webresources/generic/get';
 
 export default class BooksList extends Component {
 	constructor(props){
 	    super(props);
 	    this.state = {
-	    	dataSource: ds.cloneWithRows(convos),
+	    	dataSource: new ListView.DataSource({
+	          rowHasChanged: (row1, row2) => row1 !== row2,
+	        }),
+	        loaded: false,
 	    	text: ""
 	    };
 		this.handleBack = (() => {
@@ -33,6 +34,7 @@ export default class BooksList extends Component {
 	}
 
 	componentDidMount() {
+		this.fetchData();
     	BackAndroid.addEventListener('hardwareBackPress', this.handleBack);
     }
 
@@ -40,11 +42,25 @@ export default class BooksList extends Component {
     	BackAndroid.removeEventListener('hardwareBackPress', this.handleBack);
     }
 
+    fetchData() {
+      fetch(REQUEST_URL)
+        .then((response) => response.json())
+        .then((responseData) => {
+          convos = responseData.books,
+          this.setState({
+          	dataSource: this.state.dataSource.cloneWithRows(convos),
+            loaded: true,
+          });
+          
+        })
+        .done();
+ 	}
+
 	eachPic(x){
 	    return(
 	    	<TouchableOpacity onPress={() => {this.props.navigator.push({id: 'book', passProps: x.id, sceneConfig: Navigator.SceneConfigs.PushFromRight})}} style={styles.description}>
 	    		<View style={styles.container}>	    		
-			        <Image source = {x.image} style={{width:100, height:150}} />
+			        <Image source={{uri: x.image}} style={{width:100, height:150}} />
 			        <View style={styles.rightContainer}>
 			          	<Text style={styles.author}>{x.author}</Text>
 		        		<Text style={styles.name}>{x.name}</Text>
@@ -54,6 +70,10 @@ export default class BooksList extends Component {
     )}
 
 	render() {
+		if (!this.state.loaded) {
+	      return this.renderLoadingView();
+	    }
+
 		return (
 			<View style={{flex:1, marginBottom:25}}>
 				<TextInput 
@@ -73,6 +93,16 @@ export default class BooksList extends Component {
 	       </View>
 		);
 	}
+
+	renderLoadingView() {
+      return (
+        <View style={styles.container}>
+          <Text>
+            Loading books...
+          </Text>
+        </View>
+      );
+    }
 
 	filterSearch(text){
 		const newData = convos.filter(function(item){

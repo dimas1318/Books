@@ -1,0 +1,26 @@
+{"books": [{
+  "id": 1,
+  "name": "Властелин колец",
+  "author": "Дж. Р.Р. Толкин",
+  "image" : "http://royallib.com/data/images/6/cover_6715.jpg"
+}, {
+  "id": 2,
+  "name": "Война и мир",
+  "author": "Л.Н. Толстой",
+  "image" : "https://godliteratury.ru/wp-content/uploads/2015/12/voyna-i-mir.jpg"
+}, {
+  "id": 3,
+  "name": "Илиада",
+  "author": "Гомер",
+  "image" : "http://be2.aldebaran.ru/static/bookimages/06/15/53/06155365.bin.dir/06155365.cover_250.jpg"
+}, {
+  "id": 4,
+  "name": "Преступление и наказание",
+  "author": "Ф.М. Достоевский",
+  "image" : "http://www.e-reading.club/cover/20/20412.jpg"
+}, {
+  "id": 5,
+  "name": "Мастер и маргарита",
+  "author": "М. Булгаков",
+  "image" : "http://modernlib.ru/books/bulgakov_mihail_afanasevich/master_i_margarita/cover.jpg"
+}]}
